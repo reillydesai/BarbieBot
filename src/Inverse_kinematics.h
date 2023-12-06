@@ -5,10 +5,15 @@
 
 class InverseKinematics{
     private:
-        
+        float currentx = 0;
+        float currenty = 0;
+        float currentTheta = 0;
+
+        void UpdatePose(void); // updates currentx, currenty, currentTheta
+
     public:
         void Init(void);
-        bool DrivetoTarget(float, float, float); //x, y, theta as parsed from Barbie
+        void DriveToTarget(float, float, float); // x, y, theta as parsed from Barbie; BLOCKING
         void Stop(void);
 };
 

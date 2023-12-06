@@ -11,24 +11,16 @@ unsigned long time_now = 0;
 
 void Position::Init(void)
 {
-    time_prev = millis();
+    time_prev, turn_t_prev = millis();
     RomiEncoders.ReadEncoderCountLeft(true);
-    x = 0;
-    y = 0;
-    theta = 0;
+    x, y, theta = 0;
+    theta_prev = theta;
 }
 
 void Position::Stop(void)
 {
-    time_prev = millis();
-    x = 0; 
-    y = 0;
-    theta = 0;
-}
-
-Position::pose_data Position::ReadPose(void)
-{
-    return {x,y,theta};
+    time_prev, turn_t_prev = millis();
+    x, y, theta = 0;
 }
 
 String Position::PoseToString()
@@ -63,14 +55,33 @@ void Position::UpdatePose(float target_speed_left, float target_speed_right)
     }
 }
 
-float Position::GetX(){
+bool Position::DetectTurn()
+{
+    turn_t_now = millis();
+    if (turn_t_now - turn_t_prev > interval) {
+        turn_t_prev = millis();
+        theta_prev = theta;
+    }
+    if (abs(theta - theta_prev) > 90 /*degrees?*/) {
+        turn_t_prev = millis();
+        theta_prev = theta;
+        return true;
+    }
+    return false;
+}
+
+
+float Position::GetX()
+{
     return x;
 }
     
-float Position::GetY(){
+float Position::GetY()
+{
     return y;
 }
     
-float Position::GetTheta(){
+float Position::GetTheta()
+{
     return theta;
 }

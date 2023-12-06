@@ -2,6 +2,7 @@
 #include "Behaviors.h"
 #include "Speed_controller.h"
 #include "Position_estimation.h"
+#include "Inverse_kinematics.h"
 #include "Montage_tasks.h"
 
 // sensors
@@ -12,6 +13,7 @@ SpeedController robot;
 
 // function imports
 Position positionTracking;
+InverseKinematics inverse;
 Montage tasks;
 
 void Behaviors::Init(void)
@@ -33,7 +35,7 @@ void Behaviors::Run(void)
             // change state to next step
             
     case DRIVE:
-        
+        inverse.DriveToTarget(/*barbie data*/ 0,0,0); // BLOCKING
         break;
     
     case HULA_HOOP:

@@ -3,27 +3,25 @@
 #include  "Speed_controller.h"
 #include "Montage_tasks.h"
 
-Romi32U4Motors motors;
-Encoder motorEncoder;
 SpeedController controller;
 
-void Init(void){
+void Montage::Init(void){
 
 }
 
-bool HulaHoop(){
+bool Montage::HulaHoop(){
     // if less than 3 turns return false
     // if more than 3 turns call stop & return true
 }
 
-void HulaHoopStop(){
+void Montage::HulaHoopStop(){
     controller.Stop();
 }
 
-bool Buzzer(){
+bool Montage::Buzzer(){
 
 }
 
-void BuzzerStop(){
+void Montage::BuzzerStop(){
 
 }
