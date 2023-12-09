@@ -55,7 +55,7 @@ void Position::UpdatePose(float target_speed_left, float target_speed_right)
     }
 }
 
-bool Position::DetectTurn()
+bool Position::TurnDetected()
 {
     turn_t_now = millis();
     if (turn_t_now - turn_t_prev > interval) {
@@ -70,6 +70,11 @@ bool Position::DetectTurn()
     return false;
 }
 
+bool Position::EndReached()
+{
+    if (x > x_lower_target && x < x_upper_target && y > y_lower_target && y < y_upper_target) return true;
+    else return false;
+}
 
 float Position::GetX()
 {

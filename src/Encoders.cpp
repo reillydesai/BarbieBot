@@ -12,7 +12,7 @@ Romi32U4Encoders encoders;
 
 void Encoder::Init(void)
 {
-    //nothing to initialize, however, good practice to have a init function anyway
+  //nothing to initialize, however, good practice to have a init function anyway
 }
 
 float Encoder::PrintVelocities(void)
@@ -38,14 +38,14 @@ int Encoder::ReadEncoderCountRight(bool reset)
 
 float Encoder::ReadVelocityLeft(void)
 {
-    float measurement = (C_wheel/N_wheel)*(count_left-prev_count_left)/((float)interval/1000);
-    return measurement;
+  float measurement = (C_wheel/N_wheel)*(count_left-prev_count_left)/((float)interval/1000);
+  return measurement;
 }
 
 float Encoder::ReadVelocityRight(void)
 {
-    float measurement = (C_wheel/N_wheel)*(count_right-prev_count_right)/((float)interval/1000);
-    return measurement;
+  float measurement = (C_wheel/N_wheel)*(count_right-prev_count_right)/((float)interval/1000);
+  return measurement;
 }
 
 boolean Encoder::UpdateEncoderCounts(void)

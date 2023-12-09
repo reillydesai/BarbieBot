@@ -1,12 +1,12 @@
 #include <Arduino.h>
 #include "Behaviors.h"
 
-Behaviors Ken;
+Behaviors Barbie;
 
 void setup() {
-  Ken.Init();
+  Barbie.Init();
 }
 
 void loop() {
-  Ken.Run();
+  Barbie.Run();
 }

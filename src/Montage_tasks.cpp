@@ -5,23 +5,41 @@
 
 SpeedController controller;
 
-void Montage::Init(void){
-
+void Montage::Init(void)
+{
+    time_prev = millis();
 }
 
-bool Montage::HulaHoop(){
+bool Montage::HulaHoop()
+{
     // if less than 3 turns return false
-    // if more than 3 turns call stop & return true
+    // if more than 3 turns controller.stop stop & return true
 }
 
-void Montage::HulaHoopStop(){
-    controller.Stop();
+bool Montage::Buzzer()
+{
+    if (i < 0 /*num rows in song*/) {
+        if (millis() - time_prev < song[i][1])
+        {
+            /*play note at song[i][0]*/ 
+        } else {
+            BuzzerStop();
+            i++;
+            time_prev = millis();
+        }
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Montage::Buzzer(){
-
+void Montage::BuzzerStop()
+{
+    // set buzzer to off
 }
 
-void Montage::BuzzerStop(){
-
+bool Montage::Turn()
+{
+    // if less than 90 degrees (turning left) return false
+    // if less than 90 degrees controller.stop & return true
 }

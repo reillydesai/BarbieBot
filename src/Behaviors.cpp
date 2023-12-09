@@ -2,23 +2,24 @@
 #include "Behaviors.h"
 #include "Speed_controller.h"
 #include "Position_estimation.h"
-#include "Inverse_kinematics.h"
 #include "Montage_tasks.h"
+#include "Wall_following_controller.h"
 
 // sensors
 Romi32U4ButtonA buttonA;
 
-// motor-speed controller
+//
 SpeedController robot;
-
-// function imports
 Position positionTracking;
-InverseKinematics inverse;
 Montage tasks;
+WallFollowingController wallFollower;
+
 
 void Behaviors::Init(void)
 {
     robot.Init();
+    wallFollower.Init();
+    tasks.Init();
 }
 
 void Behaviors::Stop(void)
@@ -28,22 +29,54 @@ void Behaviors::Stop(void)
 
 void Behaviors::Run(void)
 {
-    switch (robot_state)
+    switch (drive_state)
     {
-    case IDLE:
-        // if next step recieved from barbie
-            // change state to next step
-            
-    case DRIVE:
-        inverse.DriveToTarget(/*barbie data*/ 0,0,0); // BLOCKING
-        break;
-    
-    case HULA_HOOP:
-        if (tasks.HulaHoop()) robot_state = IDLE;
-        break;
+        case IDLE:
+            break;
+                
+        case WALL_FOLLOW:
+            if (wallFollower.SpikeDetected()) {
+                drive_state = TURN;
+            }
+            else if (/*seeing april tag*/ false) {
+                // if num change state and add to array in communications class unless turn
+                // if buzzer num change buzzer state, add to array, and start sending communications
+            }
+            if (positionTracking.EndReached()) drive_state = IDLE;
+            break;
+        
+        case TURN:
+            if (tasks.Turn()) {
+                drive_state = WALL_FOLLOW;
+                wallFollower.Reset();
+            }
+            break;
 
-    case BUZZER:
-        if (tasks.Buzzer()) 
-        break;
+        case HULA_HOOP:
+            if (tasks.HulaHoop()) {
+                drive_state = WALL_FOLLOW;
+                wallFollower.Reset();
+            }
+            break;
     }
+
+    switch (buzzer_state)
+    {
+        case OFF:
+            break;
+
+        case ON:
+            if (tasks.Buzzer()) {
+                buzzer_state = OFF;
+            }
+            break;
+    }
+
+    // may reevaluate placement once communications class is developed
+    if (positionTracking.TurnDetected() && drive_state != HULA_HOOP) {
+        // add to array of strings to send in communications class
+    }
+
+    
+
 }

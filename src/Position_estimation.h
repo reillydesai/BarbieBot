@@ -6,20 +6,29 @@
 class Position{
     private:
         float x, y, theta;
+        
         unsigned long time_prev, time_now; //time for forward kinematics
         unsigned long turn_t_prev, turn_t_now; //time for turn detection
         const unsigned long interval; //interval for turn detection
-        const float l = 0.142875; //meters
         
+        float theta_prev;
+        
+        float x_lower_target = 0;
+        float x_upper_target = 0;
+        float y_lower_target = 0;
+        float y_upper_target = 0;
+
+        const float l = 0.142875; //meters
     public:
         void Init(void);
         void UpdatePose(float,float);
-        String PoseToString();
+        String PoseToString(void);
         void Stop(void);
-        float GetX();
-        float GetY();
-        float GetTheta();
-        bool DetectTurn();
+        float GetX(void);
+        float GetY(void);
+        float GetTheta(void);
+        bool TurnDetected(void);
+        bool EndReached(void);
 };
 
 #endif

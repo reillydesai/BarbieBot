@@ -5,11 +5,14 @@
 
 class Behaviors{
     private:
-        enum ROBOT_STATE {IDLE, DRIVE, HULA_HOOP, BUZZER};
-        ROBOT_STATE robot_state = IDLE; //initial state: IDLE
+        enum DRIVE_STATE {IDLE, WALL_FOLLOW, TURN, HULA_HOOP};
+        enum BUZZER_STATE {ON, OFF};
+        DRIVE_STATE drive_state = IDLE; //initial state: IDLE
+        BUZZER_STATE buzzer_state = OFF; //initial state: OFF
 
+        
     public:
-        void Init(void); /// a and b
+        void Init(void); 
         void Stop(void);
         void Run(void);
 };
