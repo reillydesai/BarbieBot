@@ -8,6 +8,7 @@ SpeedController controller;
 void Montage::Init(void)
 {
     time_prev = millis();
+    // initiaize buzzer pin
 }
 
 bool Montage::HulaHoop()
@@ -18,7 +19,7 @@ bool Montage::HulaHoop()
 
 bool Montage::Buzzer()
 {
-    if (i < 0 /*num rows in song*/) {
+    if (i < 0 /*num rows/notes in song*/) {
         if (millis() - time_prev < song[i][1])
         {
             /*play note at song[i][0]*/ 
